@@ -1,0 +1,12 @@
+$: << File.join(File.dirname(__FILE__), "..", "lib")
+
+require "professor"
+
+if File.identical?(__FILE__, $0)
+  old_rdoc_filename = ARGV[0]
+  new_rdoc_filename = ARGV[1]
+  output_filename = ARGV[2]
+
+  comparison = Professor.create_comparison(old_rdoc_filename, new_rdoc_filename)
+  comparison.output_comparison(output_filename)
+end
