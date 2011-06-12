@@ -20,4 +20,9 @@ module TestProfessorHelper
   def create_comparison_using_filenames(old_rdoc_filename, new_rdoc_filename)
     comparison = Professor.create_comparison(old_rdoc_filename, new_rdoc_filename)
   end
+
+  def get_report_line(comparison, method_description)
+    output = comparison.output_text
+    output.split("\n").find{|line| line.include?(method_description)}
+  end
 end

@@ -38,6 +38,10 @@ class Professor
       def initialize(self_percent, total_percent, self_absolute, wait_absolute, child_absolute, calls, name)
         @self_percent, @total_percent, @self_absolute, @wait_absolute, @child_absolute, @calls, @name = self_percent, total_percent, self_absolute, wait_absolute, child_absolute, calls, name
       end
+
+      def statistics_portion
+        [@self_percent, @total_percent, @self_absolute, @wait_absolute, @child_absolute, @calls].join("  ")
+      end
     end
   end
 
@@ -71,12 +75,18 @@ class Professor
 
   class MethodComparison
     def initialize(old_rdoc_method_report, new_rdoc_method_report)
+      @old_rdoc_method_report = old_rdoc_method_report
       @new_rdoc_method_report = new_rdoc_method_report
+    end
+
+    def method_name
+      @new_rdoc_method_report.name
     end
 
     def output_line
       # FIXME add more information
-      @new_rdoc_method_report.name
+      old_report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join(" ")
+      [old_report_statistics_string, method_name].join("  ")
     end
   end
 end
