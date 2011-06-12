@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "professor"
   gem.homepage = "http://github.com/agrimm/professor"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Profiling comparison for optimization}
+  gem.description = %Q{Compare profiling files so you can see how much each method has improved as a result of your optimizations.}
   gem.email = "andrew.j.grimm@gmail.com"
   gem.authors = ["Andrew Grimm"]
   # dependencies defined in Gemfile
