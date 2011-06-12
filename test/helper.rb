@@ -15,3 +15,9 @@ require 'professor'
 
 class Test::Unit::TestCase
 end
+
+module TestProfessorHelper
+  def create_comparison_using_filenames(old_rdoc_filename, new_rdoc_filename)
+    comparison = Professor.create_comparison(old_rdoc_filename, new_rdoc_filename)
+  end
+end
