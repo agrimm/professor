@@ -59,8 +59,10 @@ class Professor
 
     def determine_method_comparisons(old_rdoc_report, new_rdoc_report)
       old_rdoc_method_reports, new_rdoc_method_reports = old_rdoc_report.method_reports, new_rdoc_report.method_reports
-      # FIXME assumption of a one to one mapping of methods, and that they're in the same order
-      old_rdoc_method_reports.zip(new_rdoc_method_reports).map do |old_rdoc_method_report, new_rdoc_method_report|
+      methon_name_order = Hash[old_rdoc_method_reports.each_with_index.map{|report, i| [report.name, i]}]
+      sorted_new_rdoc_method_reports = new_rdoc_method_reports.sort_by{|report| methon_name_order.fetch(report.name)}
+      # FIXME assumption of a one to one mapping of methods
+      old_rdoc_method_reports.zip(sorted_new_rdoc_method_reports).map do |old_rdoc_method_report, new_rdoc_method_report|
         method_comparison = MethodComparison.new(old_rdoc_method_report, new_rdoc_method_report)
       end
     end

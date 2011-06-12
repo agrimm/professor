@@ -2,8 +2,8 @@ Thread ID: 2148446640
 Total: 0.032956
 
  %self     total     self     wait    child    calls  name
- 74.87      0.02     0.02     0.00     0.02       21  Kernel#gem_original_require
   4.58      0.01     0.01     0.00     0.01       25  Module#class_eval
+ 74.87      0.02     0.02     0.00     0.02       21  Kernel#gem_original_require
   2.85      0.00     0.00     0.00     0.00       33  Module#module_eval
   1.42      0.00     0.00     0.00     0.00       17  Array#each
   1.41      0.00     0.00     0.00     0.00      447  Module#method_added
