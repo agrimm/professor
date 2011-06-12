@@ -40,7 +40,7 @@ class Professor
       end
 
       def statistics_portion
-        [@self_percent, @total_percent, @self_absolute, @wait_absolute, @child_absolute, @calls].join("  ")
+        [@self_percent, @total_percent, @self_absolute, @wait_absolute, @child_absolute, @calls].join("\t")
       end
     end
   end
@@ -69,7 +69,10 @@ class Professor
     end
 
     def output_text
-      self.method_comparisons.map(&:output_line).join("\n")
+      first_heading_line = ["Old", "New", "Difference"].join("\t" * 6)
+      second_heading_line = ("%self     total     self     wait    child    calls".split(/ +/).*(3)+["name"]).join("\t")
+      body_lines = method_comparisons.map(&:output_line)
+      ([first_heading_line, second_heading_line] + body_lines).join("\n")
     end
   end
 
@@ -87,13 +90,13 @@ class Professor
       statistic_deltas = [:self_percent, :total_percent, :self_absolute, :wait_absolute, :child_absolute, :calls].map do |statistic_name|
         @new_rdoc_method_report.send(statistic_name) - @old_rdoc_method_report.send(statistic_name)
       end
-      statistic_deltas.join("  ")
+      statistic_deltas.map{|f| sprintf("%.2f", f)}.join("\t")
     end
 
     def output_line
       # FIXME add more information
-      report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join(" ")
-      [report_statistics_string, statistics_delta_portion, method_name].join("  ")
+      report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join("\t")
+      [report_statistics_string, statistics_delta_portion, method_name].join("\t")
     end
   end
 end
