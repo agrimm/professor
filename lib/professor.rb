@@ -54,10 +54,11 @@ class Professor
     end
 
     def initialize(old_rdoc_report, new_rdoc_report)
-      @method_comparisons = determine_method_comparisons(old_rdoc_report.method_reports, new_rdoc_report.method_reports)
+      @method_comparisons = determine_method_comparisons(old_rdoc_report, new_rdoc_report)
     end
 
-    def determine_method_comparisons(old_rdoc_method_reports, new_rdoc_method_reports)
+    def determine_method_comparisons(old_rdoc_report, new_rdoc_report)
+      old_rdoc_method_reports, new_rdoc_method_reports = old_rdoc_report.method_reports, new_rdoc_report.method_reports
       # FIXME assumption of a one to one mapping of methods, and that they're in the same order
       old_rdoc_method_reports.zip(new_rdoc_method_reports).map do |old_rdoc_method_report, new_rdoc_method_report|
         method_comparison = MethodComparison.new(old_rdoc_method_report, new_rdoc_method_report)
