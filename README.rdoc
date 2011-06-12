@@ -1,6 +1,6 @@
 = professor
 
-Description goes here.
+Compare two profiling files to determine which methods have improved between the two runs.
 
 == Contributing to professor
  
