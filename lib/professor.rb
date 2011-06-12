@@ -58,7 +58,7 @@ class Professor
     end
 
     def determine_method_comparisons(old_rdoc_method_reports, new_rdoc_method_reports)
-      # FIXME assumption of a one to one mapping of methods
+      # FIXME assumption of a one to one mapping of methods, and that they're in the same order
       old_rdoc_method_reports.zip(new_rdoc_method_reports).map do |old_rdoc_method_report, new_rdoc_method_report|
         method_comparison = MethodComparison.new(old_rdoc_method_report, new_rdoc_method_report)
       end
@@ -94,7 +94,6 @@ class Professor
     end
 
     def output_line
-      # FIXME add more information
       report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join("\t")
       [report_statistics_string, statistics_delta_portion, method_name].join("\t")
     end
