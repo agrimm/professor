@@ -23,7 +23,7 @@ class Professor
     end
 
     class MethodReport
-      attr_reader :name
+      attr_reader :self_percent, :total_percent, :self_absolute, :wait_absolute, :child_absolute, :calls, :name
 
       def self.new_using_line(line)
         # FIXME splitting up the line is slightly hacky
@@ -83,10 +83,17 @@ class Professor
       @new_rdoc_method_report.name
     end
 
+    def statistics_delta_portion
+      statistic_deltas = [:self_percent, :total_percent, :self_absolute, :wait_absolute, :child_absolute, :calls].map do |statistic_name|
+        @new_rdoc_method_report.send(statistic_name) - @old_rdoc_method_report.send(statistic_name)
+      end
+      statistic_deltas.join("  ")
+    end
+
     def output_line
       # FIXME add more information
-      old_report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join(" ")
-      [old_report_statistics_string, method_name].join("  ")
+      report_statistics_string = [@old_rdoc_method_report, @new_rdoc_method_report].map(&:statistics_portion).join(" ")
+      [report_statistics_string, statistics_delta_portion, method_name].join("  ")
     end
   end
 end
