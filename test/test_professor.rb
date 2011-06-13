@@ -23,4 +23,11 @@ class TestProfessor < Test::Unit::TestCase
     delta_self_percent_regexp = /-1.0/
     assert_match delta_self_percent_regexp, method_comparison_report_line, "Doesn't include change in self percent percent"
   end
+
+  def test_dont_raise_when_there_are_space_issues
+    assert_nothing_raised do
+      comparison = create_comparison_using_filenames("test/data/problem_with_spaces.txt", "test/data/problem_with_spaces.txt")
+      #comparison.output_text
+    end
+  end
 end

@@ -27,7 +27,7 @@ class Professor
 
       def self.new_using_line(line)
         # FIXME splitting up the line is slightly hacky
-        cells = line.strip.split(/  +/).map(&:strip)
+        cells = line.strip.split(/ +/).map(&:strip)
         self_percent, total_percent, self_absolute, wait_absolute, child_absolute = cells[0..5].map{|cell| Float(cell)}
         calls = Integer(cells[5])
         name = cells[6]
