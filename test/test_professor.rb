@@ -30,4 +30,10 @@ class TestProfessor < Test::Unit::TestCase
       #comparison.output_text
     end
   end
+
+  def test_handle_difference_in_method_list
+    assert_nothing_raised do
+      comparison = create_comparison_using_filenames("test/data/basic_sec_with_yaml.txt", "test/data/basic_sec_without_output_yaml.txt")
+    end
+  end
 end

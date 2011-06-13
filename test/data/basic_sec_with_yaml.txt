@@ -1,0 +1,7 @@
+Thread ID: -607899428
+Total: 18446744073.475315
+
+ %self     total     self     wait    child    calls  name
+200.00      1.02 36893488139.63     0.00     0.88    38422  Array#map
+
+
