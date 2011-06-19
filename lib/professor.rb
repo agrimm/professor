@@ -58,13 +58,18 @@ class Professor
     end
 
     def determine_method_comparisons(old_rdoc_report, new_rdoc_report)
-      old_rdoc_method_reports, new_rdoc_method_reports = old_rdoc_report.method_reports, new_rdoc_report.method_reports
-      methon_name_order = Hash[old_rdoc_method_reports.each_with_index.map{|report, i| [report.name, i]}]
-      sorted_new_rdoc_method_reports = new_rdoc_method_reports.sort_by{|report| methon_name_order.fetch(report.name) { 10000} }
-      # FIXME assumption of a one to one mapping of methods
-      old_rdoc_method_reports.zip(sorted_new_rdoc_method_reports).map do |old_rdoc_method_report, new_rdoc_method_report|
+      old_rdoc_method_reports, new_rdoc_method_reports = [old_rdoc_report, new_rdoc_report].map(&:method_reports)
+      old_rdoc_method_names, new_rdoc_method_names = [old_rdoc_method_reports, new_rdoc_method_reports].map{|reports| reports.map(&:name)}
+      raise "Assumption broken" unless [old_rdoc_method_names, new_rdoc_method_names].all? {|names| names == names.uniq}
+      method_names = old_rdoc_method_names + (new_rdoc_method_names - old_rdoc_method_names)
+      old_rdoc_method_reports_by_name, new_rdoc_method_reports_by_name = [old_rdoc_method_reports, new_rdoc_method_reports].map {|reports| reports.group_by(&:name)}
+      method_comparisons = method_names.map do |method_name|
+        old_rdoc_method_report = old_rdoc_method_reports_by_name.fetch(method_name) { [] }.first
+        new_rdoc_method_report = new_rdoc_method_reports_by_name.fetch(method_name) { [] }.first
         method_comparison = MethodComparison.new(old_rdoc_method_report, new_rdoc_method_report)
+        method_comparison
       end
+      method_comparisons
     end
 
     def output_comparison(output_filename)

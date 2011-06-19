@@ -36,4 +36,11 @@ class TestProfessor < Test::Unit::TestCase
       comparison = create_comparison_using_filenames("test/data/basic_sec_with_yaml.txt", "test/data/basic_sec_without_output_yaml.txt")
     end
   end
+
+  def test_report_correct_values_for_shared_methods
+    comparison = create_comparison_using_filenames("test/data/three_method_basic_profile.txt", "test/data/two_method_basic_profile.txt")
+    method_comparison_report_line = get_report_line(comparison, "Module#module_eval")
+    delta_calls_regexp = /\W0.0+\WModule.module_eval/
+    assert_match delta_calls_regexp, method_comparison_report_line, "Doesn't report correct values for a method with identical statistics in both profiles"
+  end
 end
