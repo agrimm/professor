@@ -23,6 +23,7 @@ module TestProfessorHelper
 
   def get_report_line(comparison, method_description)
     output = comparison.output_text
-    output.split("\n").find{|line| line.include?(method_description)}
+    report_line = output.split("\n").find{|line| line.include?(method_description)}
+    report_line.tap {raise "Couldn't find #{method_description.inspect} in \n#{output}" if report_line.nil?}
   end
 end
